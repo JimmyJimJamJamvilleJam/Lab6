@@ -16,7 +16,6 @@ public class Colosseum {
      * The maximum number of hit points we will allow a Pokemon to start with.
      */
     static final int MAX_HIT_POINTS = 50;
-
     /**
      * The maximum number of rounds we will let the Pokemon battle.
      */
@@ -102,10 +101,43 @@ public class Colosseum {
      * (Look, we can return objects too!)
      */
     public static Pokemon buildPokemon() {
-        Pokemon returnPokemon = null;
-        return returnPokemon;
-    }
+        System.out.println("Select from the following pokemon types:");
+        System.out.println("1 - Electric\n2 - Fire\n3 - Water");
+        int type = myScan.nextInt();
 
+        System.out.println("Please name your pokemon");
+        String name = myScan.next();
+
+        int hp = 0;
+        System.out.println("How many hitpoints does it have? (1-50)");
+        hp = myScan.nextInt();
+        while (hp > MAX_HIT_POINTS || hp < 1) {
+            System.out.println("SOrry, it must be between 1 and 50 hp.");
+            hp = myScan.nextInt();
+        }
+
+        System.out.println("Allocate points for attack (1-49)");
+        int attack = myScan.nextInt();
+        while (attack > MAX_HIT_POINTS - 1 || attack < 1) {
+            System.out.println("SOrry, it must be between 1 and 49");
+            attack = myScan.nextInt();
+        }
+
+        System.out.println("Allocate points for defense(1-" + (MAX_HIT_POINTS - attack) + ")");
+        int def = myScan.nextInt();
+        while (def > MAX_HIT_POINTS - attack || def < 1) {
+            System.out.println("SOrry, it must be between 1 and " + (MAX_HIT_POINTS - attack));
+            def = myScan.nextInt();
+        }
+        if (type == 1) {
+            return new ElectricPokemon();
+        } else if (type == 2) {
+            return new FirePokemon();
+        } else {
+            return new WaterPokemon();
+        }
+        //return new Pokemon(name, hp, attack, def);
+    }
     /**
      * Prints who is ahead.
      * <p>
